@@ -30,7 +30,7 @@ namespace OnlineOCR
             using (var client = new HttpClient())
 
             {
-                var url = "";
+                var url = "your RESTful Api connect url";
 
                 clientInit(client);
 
