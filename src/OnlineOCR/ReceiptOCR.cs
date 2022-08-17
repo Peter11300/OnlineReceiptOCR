@@ -32,18 +32,25 @@ namespace OnlineOCR
             {
                 var url = "your RESTful Api connect url";
 
+                // Initialize client, set default request headers 
                 clientInit(client);
 
+                // Use Multipart Form-Data to post
                 MultipartFormDataContent form = new MultipartFormDataContent();
 
+                // File
                 form.Add(new StreamContent(fileStream), "UpLoadFile", fileName);
+                // String
                 form.Add(new StringContent(Saveimg.ToString()), "Saveimg");
                 form.Add(new StringContent(TaxID), "TaxID");
 
+                // Get response from your RESTful Api
                 var response = client.PostAsync(url, form).Result.Content.ReadAsStringAsync().Result;
 
+                // Unicode decode
                 string result = Regex.Unescape(response);
 
+                // Use Newtonsoft.Json trans Json to String
                 Receipt.Information receipt = JsonConvert.DeserializeObject<Receipt.Information>(result);
 
                 return receipt;
